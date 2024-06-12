@@ -192,7 +192,7 @@ function getRandomColor() {
 
 function colorMention(id) {
 
-    var response;
+    var response = "";
 
     // Building the responce
 
