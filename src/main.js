@@ -23,6 +23,7 @@ const botChannel = process.env["CHANNEL_ID"];
 const botId = process.env["BOT_ID"]
 const welcomeChannel = process.env["WELCOME_ID"];
 const mainChannel = process.env["MAIN_ID"];
+const memberRole = "1250482291403390976";
 
 
 // Sanity checking && Commands creation
@@ -183,6 +184,7 @@ client.on("guildMemberAdd", (member) => {
     const memberId = member.user.id;
     const ruleChannel = member.guild.rulesChannelId;
     const channel = member.guild.channels.cache.get(welcomeChannel);
+    const randomColorId = colorAndId[colors[ colors.length * Math.random() << 0]];
 
     // Embed creation
 
@@ -192,12 +194,20 @@ client.on("guildMemberAdd", (member) => {
         .setDescription(`📣  Welcome 👋 <@${memberId}> to **${guildName}** we hope you enjoy your stay.\n
                         📜  Check out the ${channelMention(ruleChannel)} channel to ensure you keep the server a fun and welcoming space for everyone!\n
                         🤖  Use ${"`?help`"} in ${channelMention(botChannel)} to know everything about <@${botId}> our bot.\n
-                        🗣️  Say hello and talk with members in the ${channelMention(mainChannel)} chat.\n`)
+                        🗣️  Say hello and talk with members in the ${channelMention(mainChannel)} chat.\n
+                        ✨  You were given the <@&${randomColorId}> color, you can change it by using the ${"`/color`"} command.`)
         .setImage('https://i.ibb.co/hckJwVX/welcome.png');
 
     // Send embed
 
     channel.send({ embeds: [welcomeEmbed] });
+
+    // Give necessary roles and a random color
+
+    member.roles.add([randomColorId, memberRole]).catch(err => {
+        console.error(err);
+        return;
+    });
 
 });
 
@@ -240,3 +250,10 @@ function colorMention(id) {
     return response;
 
 };
+
+// function getRandomColorRole(object, values) {
+//     const id = object[values[ values.length * Math.random() << 0]];
+//     const name = Object.keys(object).find(key => object[key] === id);
+
+//     return {id, name};
+// }
