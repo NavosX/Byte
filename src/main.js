@@ -19,6 +19,10 @@ const client = new Client({
 const colorAndId = JSON.parse(fs.readFileSync('src/data/colors.json', 'utf8'));
 const colors = Object.keys(colorAndId);
 const colorId = Object.values(colorAndId);
+const botChannel = process.env["CHANNEL_ID"];
+const botId = process.env["BOT_ID"]
+const welcomeChannel = process.env["WELCOME_ID"];
+const mainChannel = process.env["MAIN_ID"];
 
 
 // Sanity checking && Commands creation
@@ -48,7 +52,7 @@ client.on('interactionCreate', (i) => {
 
     // Channel check
 
-    if (i.channelId === process.env['CHANNEL_ID']) {
+    if (i.channelId === botChannel) {
 
         // Color role exchange
 
@@ -129,7 +133,7 @@ client.on('interactionCreate', (i) => {
     // Decline command in wrong channel
     
     else {
-        i.reply("Command declined! \n Please send commands in " + channelMention(process.env['CHANNEL_ID']) + "!");
+        i.reply("Command declined! \n Please send commands in " + channelMention(botChannel) + "!");
     };
 
 });
@@ -150,17 +154,50 @@ client.on("messageCreate", (msg) => {
 
         // Channel check
 
-        if (msg.channelId === process.env['CHANNEL_ID']) {
+        if (msg.channelId === botChannel) {
             msg.reply("Do you want to change colors? Use `/color` and fill the command!" );
         }
 
         // Decline command in wrong channel
         
         else {
-            msg.reply("Command declined! \n Please send commands in " + channelMention(process.env['CHANNEL_ID']) + "!");
+            msg.reply("Command declined! \n Please send commands in " + channelMention(botChannel) + " !");
         };
 
     };
+
+});
+
+
+// Welcome message
+
+
+client.on("guildMemberAdd", (member) => {
+
+    // Declining bots
+
+    if (member.user.bot) return;
+
+    const guildName = member.guild.name;
+    const memberName = member.user.globalName;
+    const memberId = member.user.id;
+    const ruleChannel = member.guild.rulesChannelId;
+    const channel = member.guild.channels.cache.get(welcomeChannel);
+
+    // Embed creation
+
+    const welcomeEmbed = new EmbedBuilder()
+        .setColor(getRandomColor())
+        .setTitle(memberName)
+        .setDescription(`📣  Welcome 👋 <@${memberId}> to **${guildName}** we hope you enjoy your stay.\n
+                        📜  Check out the ${channelMention(ruleChannel)} channel to ensure you keep the server a fun and welcoming space for everyone!\n
+                        🤖  Use ${"`?help`"} in ${channelMention(botChannel)} to know everything about <@${botId}> our bot.\n
+                        🗣️  Say hello and talk with members in the ${channelMention(mainChannel)} chat.\n`)
+        .setImage('https://i.ibb.co/hckJwVX/welcome.png');
+
+    // Send embed
+
+    channel.send({ embeds: [welcomeEmbed] });
 
 });
 
