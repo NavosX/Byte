@@ -20,10 +20,10 @@ const colorAndId = JSON.parse(fs.readFileSync('src/data/colors.json', 'utf8'));
 const colors = Object.keys(colorAndId);
 const colorId = Object.values(colorAndId);
 const botChannel = process.env["CHANNEL_ID"];
-const botId = process.env["BOT_ID"]
+const botId = process.env["BOT_ID"];
 const welcomeChannel = process.env["WELCOME_ID"];
 const mainChannel = process.env["MAIN_ID"];
-const memberRole = "1250482291403390976";
+const memberRole = process.env["MEMBER_ID"];
 
 
 // Sanity checking && Commands creation
