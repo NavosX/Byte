@@ -1,8 +1,8 @@
 const { channelMention, EmbedBuilder } = require("discord.js");
 
-const addRole = require("./utilities/addRole");
+const addRole = require("../utils/addRole.js");
 
-const botId = process.env["BOT_ID"];
+const botId = process.env["CLIENT_ID"];
 const welcomeChannel = process.env["WELCOME_ID"];
 const mainChannel = process.env["MAIN_ID"];
 const memberRole = process.env["MEMBER_ID"];

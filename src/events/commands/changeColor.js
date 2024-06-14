@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 
-const addRole = require("../utilities/addRole.js");
-const removeRole = require("../utilities/removeRole.js");
+const addRole = require("../../utils/addRole.js");
+const removeRole = require("../../utils/removeRole.js");
 
 module.exports = (interaction, embedColor, colorsId) => {
   const { options, member } = interaction;
@@ -13,13 +13,12 @@ module.exports = (interaction, embedColor, colorsId) => {
   if (colorsId.includes(colorId)) {
     colorsId.forEach((id) => {
       if (member.roles.cache.some((role) => role.id === id)) {
+        // Removing the color role
         removeRole(member, id);
-
-        colorRemoved = true;
       }
     });
 
-    // Adding the color Role
+    // Adding the color role
 
     addRole(member, colorId);
 

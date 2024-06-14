@@ -1,5 +1,6 @@
 require("dotenv").config();
-const { Client, IntentsBitField, channelMention } = require("discord.js");
+const { Client, IntentsBitField } = require("discord.js");
+const mongoose = require("mongoose");
 
 const client = new Client({
   intents: [
@@ -10,74 +11,24 @@ const client = new Client({
   ],
 });
 
-const interactions = require("./interactions/main.js");
-const welcome = require("./welcome.js");
-const messages = require("./messages/main.js");
+const ready = require("./events/ready.js");
 
-// Fetch colors from a JSON file
+// Connecting to the database
 
-const colorsAndIds = require("./data/colors.json");
-const colors = Object.keys(colorsAndIds);
-const colorsId = Object.values(colorsAndIds);
+(async () => {
+  try {
+    mongoose.set("strictQuery", false);
+    await mongoose.connect(process.env["MONGODB_URI"]);
+    console.log("Connected to DB.");
 
-const botChannel = process.env["CHANNEL_ID"];
+    // Sanity check
 
-client.on("ready", () => {
-  // Sanity checking
+    ready(client);
 
-  console.log("Bot Online!");
-});
+    // Bot login
 
-// Commands interactions
-
-client.on("interactionCreate", (i) => {
-  if (!i.isChatInputCommand()) return;
-
-  // Channel check
-
-  interactions(i, botChannel, getRandomColor(), colorsId);
-});
-
-// Messages interactions
-
-client.on("messageCreate", (msg) => {
-  // Declining bots
-
-  if (msg.author.bot) return;
-
-  // Check message content
-
-  messages(msg, botChannel);
-});
-
-// Welcome message
-
-client.on("guildMemberAdd", (member) => {
-  // Declining bots
-
-  if (member.user.bot) return;
-
-  welcome(member, botChannel, getRandomColor(), colorsAndIds, colors);
-});
-
-// Bot login
-
-client.login(process.env["TOKEN"]);
-
-// Functions
-
-function getRandomColor() {
-  // Generate a random number between 0 and 255 for each color component
-
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
-
-  // Convert the RGB values to a hexadecimal string
-
-  const hex = `#${r.toString(16).padStart(2, "0")}${g
-    .toString(16)
-    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
-
-  return hex;
-}
+    client.login(process.env["TOKEN"]);
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+})();
