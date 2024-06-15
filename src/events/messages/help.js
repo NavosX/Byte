@@ -1,3 +1,3 @@
 module.exports = (msg) => {
-  msg.reply("Do you want to change colors? Use `/color` and fill the command!");
+  msg.reply("🦄 Use `/color` to change you color\n⚡ Use `/level` to see your/someone's else level and xp");
 };
