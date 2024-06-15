@@ -39,7 +39,7 @@ Use `/color` and select the color role that you want.\
 
 - #### Leveling system:
 Use `/level` to see your level, you see someone's else level by filling in the next option.\
-See how it works in the [FAQ](#How-does-the-leveling-system-work?) section.
+See how it works in the [FAQ](#how-does-the-levelling-system-work) section.
 
 - #### Help:
 Send `?help` to see all the current features.
