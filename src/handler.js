@@ -14,7 +14,7 @@ module.exports = (client) => {
   // Commands interactions
 
   client.on("interactionCreate", (interaction) => {
-    if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isChatInputCommand() || !interaction.inGuild()) return;
 
     commands(interaction, botChannel, getRandomColor(), colorsId);
   });

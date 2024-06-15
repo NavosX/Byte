@@ -1,5 +1,5 @@
 const calculateLevelXp = require("../../utils/calculateLevelXp.js");
-const lvl = require("../../models/level.js");
+const levelSchema = require("../../models/levelSchema.js");
 const cooldowns = new Set();
 const cooldownTime = 800;
 
@@ -19,7 +19,7 @@ module.exports = async (msg) => {
   };
 
   try {
-    const level = await lvl.findOne(query);
+    const level = await levelSchema.findOne(query);
 
     // Add XP level
 
@@ -34,7 +34,7 @@ module.exports = async (msg) => {
         // Send message
 
         msg.channel.send(
-          `${msg.member} you have leveled up to **level ${level.level}**.`
+          `Congratulations ${msg.member} you have leveled up to **level ${level.level}**.`
         );
       }
 
@@ -54,11 +54,16 @@ module.exports = async (msg) => {
     } else {
       // Create a new query in the database
 
-      const newLevel = new lvl({
+      const newLevel = new levelSchema({
         userId: msg.author.id,
         guildId: msg.guild.id,
         xp: xp,
+        level: 1,
       });
+
+      msg.channel.send(
+        `Congratulations ${msg.member} you have leveled up to **level 1**.`
+      );
 
       // Save the new data to the cloud
 

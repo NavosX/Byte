@@ -1,6 +1,7 @@
 const { channelMention } = require("discord.js");
 
 const changeColor = require("./changeColor.js");
+const inspectLevel = require("./inspectLevel.js");
 
 module.exports = (interaction, channel, embedColor, colorsId) => {
   if (interaction.channelId === channel) {
@@ -8,6 +9,8 @@ module.exports = (interaction, channel, embedColor, colorsId) => {
 
     if (interaction.commandName === "color") {
       changeColor(interaction, embedColor, colorsId);
+    } else if (interaction.commandName === "level") {
+      inspectLevel(interaction);
     }
   }
 
