@@ -23,7 +23,18 @@ Install Byte with git and the necessery packages using npm
   npm i canvacord
 ```
 
-After installing all the packages, fill the `.env` file, then configure the `src/data/colors.json` with your colored roles.
+After installing all the packages, configure the `src/data/colors.json` with your colored roles.\
+Create a `.env` file and fill it with the following values.
+```
+TOKEN = your bot token
+CLIENT_ID = your bot id
+GUILD_ID = your guild(server) id
+CHANNEL_ID = your channel dedicated to bots
+WELCOME_ID = your channel dedicated to welcome messages
+MAIN_ID = main channel (general)
+MEMBER_ID = your member role id (optional)
+MONGODB_URI = your mongoDB URI
+```
 ## Deployment
 
 To deploy this project run
