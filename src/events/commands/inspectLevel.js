@@ -4,10 +4,6 @@ const levelSchema = require("../../models/levelSchema.js");
 const { AttachmentBuilder } = require("discord.js");
 
 module.exports = async (interaction) => {
-  // Keep the command alive
-
-  await interaction.deferReply();
-
   // Get the command parameters
 
   const mentionedUserId = interaction.options.get("user")?.value;

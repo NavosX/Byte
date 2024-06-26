@@ -24,7 +24,7 @@ module.exports = (interaction, embedColor, colorsId) => {
 
     // Response Message
 
-    interaction.reply(
+    interaction.editReply(
       `<@${member.id}> your color changed successfully to <@&${colorId}> !`
     );
   }
@@ -46,7 +46,7 @@ module.exports = (interaction, embedColor, colorsId) => {
 
     // Responce Embed
 
-    interaction.reply({ embeds: [errorEmbed] });
+    interaction.editReply({ embeds: [errorEmbed] });
   }
 };
 

@@ -16,7 +16,7 @@ module.exports = (interaction, channel, embedColor, colorsId) => {
 
   // Decline command in wrong channel
   else {
-    interaction.reply(
+    interaction.editReply(
       "❌ Command declined! \n📨 Please send commands in " +
         channelMention(channel) +
         " channel!"

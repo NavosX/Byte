@@ -13,8 +13,12 @@ module.exports = (client) => {
 
   // Commands interactions
 
-  client.on("interactionCreate", (interaction) => {
+  client.on("interactionCreate", async (interaction) => {
     if (!interaction.isChatInputCommand() || !interaction.inGuild()) return;
+
+    // Keep the command alive
+
+    await interaction.deferReply();
 
     commands(interaction, botChannel, getRandomColor(), colorsId);
   });
