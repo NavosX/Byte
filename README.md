@@ -5,11 +5,11 @@ Byte is a discord bot designed to enhance your server with a variety of fun and 
 ## Features
 
 - Change the color of a user using roles
-- Have a levelling system working with the messages
+- Have a leveling system working with the messages
 - Welcomes any user
 ## Installation
 
-Install Byte with git and the necessary packages using npm
+Install Byte with git and the necessery packages using npm
 
 ```bash
   git clone https://github.com/NavosX/Byte.git .
@@ -23,23 +23,35 @@ Install Byte with git and the necessary packages using npm
   npm i canvacord
 ```
 
-After installing all the packages, fill in the `.env` file, then configure the `src/data/colors.json` with your colored roles.
+After installing all the packages, fill the `.env` file, then configure the `src/data/colors.json` with your colored roles.
 ## Deployment
 
 To deploy this project run
 
 ```bash
-  node src/main.js
+node src/main.js
+```
+
+**Note:** Once you deploy your bot for the first time, you need to register the slash commands.
+
+```bash
+node src/utils/registerCommands.js
+```
+
+You can delete using the following command.
+
+```bash
+node src/utils/deleteCommands.js
 ```
 ## Documentation
 
 - #### Changing the color:
 Use `/color` and select the color role that you want.\
-**Note:** You should configure your colors in `src/data/colors.json` before using this command, else it will not work.
+**Note:** You should configure you colors in `src/data/colors.json` before using this command, else it will not work.
 
 - #### Leveling system:
-Use `/level` to see your level, you see someone's else level by filling in the next option.\
-See how it works in the [FAQ](#how-does-the-levelling-system-work) section.
+Use `/level` to see your level, you see someone's else level by filling the next option.\
+See how it work in the [FAQ](#How-does-the-leveling-system-work?) section.
 
 - #### Help:
 Send `?help` to see all the current features.
@@ -47,21 +59,21 @@ Send `?help` to see all the current features.
 
 #### How does the coloring system work?
 
-Once the user submits a valid `/color` command, the bot checks if the user already has a colored role, in case he does the bot removes it and then adds the color role tagged in the command option.
+Once the user submited a valide `/color` command, the bot checks if the user already have a colored role, in case he does the bot removes it and then adds the color role tagged in the command option.
 
 **Sources:** `src/events/commands/changeColor.js` `src/utils/addRole.js` `src/utils/removeRole.js`
 
-#### How does the levelling system work?
+#### How does the leveling system work?
 
-After you send a message, the bot connects to your MongoDB and writes an object containing the following attributes:
+After you send a message, the bot connects to your mongoDB and writes an object containing the following attributes:
 ```
 {
-    "_id": collection ID,
-    "userId": user ID,
-    "guildId": guild ID,
+    "_id": collection id,
+    "userId": user Id,
+    "guildId": guild Id,
     "xp": total xp,
     "level": level,
-    "__v": version key
+    "__v": versionKey
 }
 ```
 Each message gives the user a random xp between 5 and 15, then the level is calculated using this formula `(level ÷ 0.25)² + 5`.
@@ -70,14 +82,14 @@ Each message gives the user a random xp between 5 and 15, then the level is calc
 
 #### How does the welcome message work?
 
-Once a user joins the server the bot selects a random color within the `src/data/colors.json` and assigns it with the member role to the user, then the bot sends an embed to the welcome channel.
+Once a user joined the server the bot selects a random color within the `src/data/colors.json` and assign it with the member role to the user, then the bot send an embed to the welcome channel.
 
 **Sources:** `src/events/welcome.js`
 
 #### What colors can I use?
 
 You can use any color you want, the important is that you configure the `src/data/colors.json` properly.\
-However, I recommend using the discord Suggested colors:
+However, I recommand using the discord Suggested colors:
 
 ![Suggested colors](https://i.postimg.cc/q7b5fJqn/colors.png)
 ## License
