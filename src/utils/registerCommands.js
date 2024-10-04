@@ -1,5 +1,5 @@
-require('dotenv').config();
-const { REST, Routes, ApplicationCommandOptionType, AutocompleteInteraction } = require('discord.js');
+require("dotenv").config();
+const { REST, Routes, ApplicationCommandOptionType } = require("discord.js");
 
 const commands = [
   {
@@ -27,11 +27,11 @@ const commands = [
   },
 ];
 
-const rest = new REST({ version: '10' }).setToken(process.env["TOKEN"]);
+const rest = new REST({ version: "10" }).setToken(process.env["TOKEN"]);
 
 (async () => {
   try {
-    console.log('Registering slash commands...');
+    console.log("Registering slash commands...");
 
     await rest.put(
       Routes.applicationGuildCommands(
@@ -41,7 +41,7 @@ const rest = new REST({ version: '10' }).setToken(process.env["TOKEN"]);
       { body: commands }
     );
 
-    console.log('Slash commands were registered successfully!');
+    console.log("Slash commands were registered successfully!");
   } catch (error) {
     console.log(`There was an error: ${error}`);
   }
