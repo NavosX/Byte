@@ -2,8 +2,9 @@ const { channelMention } = require("discord.js");
 
 const help = require("./help.js");
 const giveXp = require("./giveXp.js");
+const chat = require("../../gemini/chat/main.js");
 
-module.exports = (msg, channel) => {
+module.exports = (msg, channel, id) => {
   // Give XP to the user
 
   giveXp(msg);
@@ -26,5 +27,11 @@ module.exports = (msg, channel) => {
           " channel!"
       );
     }
+  } else if (msg.mentions.has(id)) {
+
+    if (msg.content.includes("@here") || msg.content.includes("@everyone") || msg.type == "REPLY") return false;
+
+    chat(msg, id)
+    
   }
 };
