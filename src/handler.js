@@ -5,9 +5,9 @@ module.exports = (client) => {
 
   // Fetch colors from a JSON file
 
-  const colorsAndIds = require("./data/colors.json");
-  const colors = Object.keys(colorsAndIds);
-  const colorsId = Object.values(colorsAndIds);
+  const configuration = require("./config.json");
+  const colors = Object.keys(configuration.colors);
+  const colorsId = Object.values(configuration.colors);
 
   const botChannel = process.env["CHANNEL_ID"];
 
@@ -30,7 +30,7 @@ module.exports = (client) => {
 
     if (msg.author.bot || !msg.inGuild()) return;
 
-    messages(msg, botChannel);
+    messages(msg, botChannel, client.user.id);
   });
 
   // Welcome message
@@ -40,7 +40,7 @@ module.exports = (client) => {
 
     if (member.user.bot) return;
 
-    welcome(member, botChannel, getRandomColor(), colorsAndIds, colors);
+    welcome(member, botChannel, getRandomColor(), configuration.colors, colors);
   });
 
   // Functions

@@ -30,6 +30,6 @@ const ready = require("./events/ready.js");
 
     client.login(process.env["TOKEN"]);
   } catch (error) {
-    console.log(`Error: ${error}`);
+    console.error(`Error: ${error}`);
   }
 })();
