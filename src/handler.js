@@ -40,7 +40,7 @@ module.exports = (client) => {
 
     if (member.user.bot) return;
 
-    welcome(member, botChannel, getRandomColor(), colorsAndIds, colors);
+    welcome(member, botChannel, getRandomColor(), configuration.colors, colors);
   });
 
   // Functions

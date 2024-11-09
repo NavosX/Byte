@@ -4,36 +4,46 @@
 Byte is a discord bot designed to enhance your server with a variety of fun and useful [features](#Features). Below, you'll find an overview of what this bot can do.
 ## Features
 
+- Have a chatbot using Gemini API with image and video support
 - Change the color of a user using roles
-- Have a leveling system working with the messages
-- Welcomes any user
+- Have a levelling system working with the messages
+- Welcomes new users
 ## Installation
 
-Install Byte with git and the necessery packages using npm
+Install Byte with git and the necessary packages using npm
 
 ```bash
   git clone https://github.com/NavosX/Byte.git .
 
-  npm i discord.js
-
-  npm i dotenv
-
-  npm i mongoose
-
-  npm i canvacord
+  npm install discord.js dotenv mongoose canvacord @google/generative-ai request
 ```
 
-After installing all the packages, configure the `src/data/colors.json` with your colored roles.\
-Create a `.env` file and fill it with the following values.
+Create a `src/config.json` file and fill it with the following:
 ```
-TOKEN = your bot token
-CLIENT_ID = your bot id
-GUILD_ID = your guild(server) id
-CHANNEL_ID = your channel dedicated to bots
-WELCOME_ID = your channel dedicated to welcome messages
-MAIN_ID = main channel (general)
-MEMBER_ID = your member role id (optional)
-MONGODB_URI = your mongoDB URI
+{
+    "colors": {
+        "color role 1": "id",
+        "color role 2": "id",
+        "color role 3": "id",
+        ...
+    },
+    "gemini": {
+        "instructions": "(eg. Act like a human)",
+        "instructionsResponce": "(eg. All instructions will be followed)"
+    }
+}
+```
+Create a `.env` file and fill it with the following:
+```
+TOKEN = Bot token
+CHANNEL_ID = Bot-dedicated channel
+CLIENT_ID = Bot ID
+GUILD_ID = Guild (server) ID
+WELCOME_ID = Welcome channel
+MAIN_ID = Main channel
+MEMBER_ID = Member role ID
+MONGODB_URI = Mongo Database URI
+GEMINI_TOKEN = Gemini token
 ```
 ## Deployment
 
@@ -56,60 +66,53 @@ node src/utils/deleteCommands.js
 ```
 ## Documentation
 
+- #### Chat with the AI:
+To chat with the AI mention the bot or reply to one of his messages. You can also send images and videos.
 - #### Changing the color:
 Use `/color` and select the color role that you want.\
-**Note:** You should configure you colors in `src/data/colors.json` before using this command, else it will not work.
+**Note:** You should configure your colors in `src/config.json` before using this command, otherwise it will not work.
 
 - #### Leveling system:
-Use `/level` to see your level, you see someone's else level by filling the next option.\
-See how it work in the [FAQ](#How-does-the-leveling-system-work?) section.
+Use `/level` to see your level, you can see someone's else level by filling in the next option.
 
 - #### Help:
-Send `?help` to see all the current features.
+Use `?help` to see all the current features.\
+Use `?media` to see AI-supported images and video.
 ## FAQ
 
-#### How does the coloring system work?
+#### How to chat with the AI?
 
-Once the user submited a valide `/color` command, the bot checks if the user already have a colored role, in case he does the bot removes it and then adds the color role tagged in the command option.
+Tag the bot or reply to one of his messages to start a conversation. The conversation restarts after 10 minutes of inactivity.
 
-**Sources:** `src/events/commands/changeColor.js` `src/utils/addRole.js` `src/utils/removeRole.js`
+#### What AI model does the bot use?
 
-#### How does the leveling system work?
+The bot uses [Gemini 1.5 Pro](https://deepmind.google/technologies/gemini/pro/) to generate text-to-text and image/video-to-text messages.
 
-After you send a message, the bot connects to your mongoDB and writes an object containing the following attributes:
+#### What media types does the AI support?
+
+[Gemini 1.5 Pro](https://deepmind.google/technologies/gemini/pro/) support these media types:\
+Images: `png` `jpeg` `webp` `heic` `heif`\
+Videos: `mp4` `mpeg` `mov` `avi` `x-flv` `mpg` `webm` `wmv` `3gpp`
+
+#### How does the leveLling system work?
+
+After you send a message, the bot connects to your Mongo database and writes an object containing the following attributes:
 ```
 {
-    "_id": collection id,
     "userId": user Id,
     "guildId": guild Id,
-    "xp": total xp,
+    "xp": total XP,
     "level": level,
-    "__v": versionKey
 }
 ```
-Each message gives the user a random xp between 5 and 15, then the level is calculated using this formula `(level ÷ 0.25)² + 5`.
-
-**Sources:** `src/models/levelSchema.js` `src/events/messages/giveXp.js` `src/utils/calculateLevelXp.js`
+Each message gives the user a random XP between 5 and 15, then the level is calculated using this formula `(level ÷ 0.25)² + 5`.
 
 #### How does the welcome message work?
 
-Once a user joined the server the bot selects a random color within the `src/data/colors.json` and assign it with the member role to the user, then the bot send an embed to the welcome channel.
+Once a user joins the server the bot selects a random color within the `config/colors.json` and assigns it with the member role to the user, then the bot send an embed to the welcome channel.
+## Feedback & Support:
 
-**Sources:** `src/events/welcome.js`
-
-#### What colors can I use?
-
-You can use any color you want, the important is that you configure the `src/data/colors.json` properly.\
-However, I recommand using the discord Suggested colors:
-
-![Suggested colors](https://i.postimg.cc/q7b5fJqn/colors.png)
-## License
-
-[GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)\
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-## Feedback
-
-If you have any feedback, please reach out to me at navosx.0@gmail.com
+If you have any feedback or if you want support, please reach out to me at navosx.0@gmail.com
 ## Authors
 
 - [@NavosX](https://www.github.com/NavosX)

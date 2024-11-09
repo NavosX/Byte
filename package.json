@@ -1,6 +1,6 @@
 {
   "name": "byte",
-  "version": "v4.1-beta",
+  "version": "v4.0.0",
   "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,7 +18,6 @@
     "canvacord": "^6.0.2",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
-    "fs": "^0.0.1-security",
     "mongoose": "^8.4.1",
     "nodemon": "^3.1.3",
     "request": "^2.88.2"

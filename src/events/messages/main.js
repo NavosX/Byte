@@ -1,6 +1,5 @@
 const { channelMention } = require("discord.js");
 
-const help = require("./help.js");
 const giveXp = require("./giveXp.js");
 const chat = require("../../gemini/chat/main.js");
 
@@ -15,7 +14,9 @@ module.exports = (msg, channel, id) => {
     if (msg.channelId === channel) {
       // Send help
       if (msg.content === "?help") {
-        help(msg);
+        msg.reply("🦄 Use `/color` to change you color\n⚡ Use `/level` to see your/someone's else level and xp");
+      } else if (msg.content === "?media") {
+        msg.reply("Supported images and videos: `png` `jpeg` `webp` `heic` `heif` `mp4` `mpeg` `mov` `avi` `x-flv` `mpg` `webm` `wmv` `3gpp`")
       }
     }
 
@@ -28,10 +29,15 @@ module.exports = (msg, channel, id) => {
       );
     }
   } else if (msg.mentions.has(id)) {
+    // Check if the bot got tagged or replied
 
-    if (msg.content.includes("@here") || msg.content.includes("@everyone") || msg.type == "REPLY") return false;
+    if (
+      msg.content.includes("@here") ||
+      msg.content.includes("@everyone") ||
+      msg.type == "REPLY"
+    )
+      return false;
 
-    chat(msg, id)
-    
+    chat(msg, id);
   }
 };
