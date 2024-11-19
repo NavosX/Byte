@@ -10,22 +10,25 @@ module.exports = (msg, channel, id) => {
 
   // Check if the message is for the bot
 
-  if (msg.content.startsWith("?")) {
-    if (msg.channelId === channel) {
-      // Send help
-      if (msg.content === "?help") {
-        msg.reply("🦄 Use `/color` to change you color\n⚡ Use `/level` to see your/someone's else level and xp");
-      } else if (msg.content === "?media") {
-        msg.reply("Supported images and videos: `png` `jpeg` `webp` `heic` `heif` `mp4` `mpeg` `mov` `avi` `x-flv` `mpg` `webm` `wmv` `3gpp`")
-      }
+  if (msg.content == "?help" || msg.content == "?media") {
+    // Decline if the message is not sent in the correct channel
+
+    if (msg.channelId != channel) {
+      msg.reply(
+        "Please send commands in " + channelMention(channel) + " channel!"
+      );
+      return;
     }
 
-    // Decline command in wrong channel
-    else {
+    if (msg.content === "?help") {
       msg.reply(
-        "❌ Command declined! \n📨 Please send commands in " +
-          channelMention(channel) +
-          " channel!"
+        "Hello! I'm Byte. Here's what I can do:\n\n**Chat with AI:**\n- You can chat with me by tagging me <@" +
+          id +
+          "> or replying to my messages.\n\n**Commands:**\n- `/level`: See your/someone else level.\n- `/color`: Change your username color (Level 5+).\n\nChat with the AI for more info."
+      );
+    } else if (msg.content === "?media") {
+      msg.reply(
+        "Supported images and videos: `png` `jpeg` `webp` `heic` `heif` `mp4` `mpeg` `mov` `avi` `x-flv` `mpg` `webm` `wmv` `3gpp`"
       );
     }
   } else if (msg.mentions.has(id)) {
