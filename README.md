@@ -2,6 +2,14 @@
 # Byte
 
 Byte is a discord bot designed to enhance your server with a variety of fun and useful [features](#Features). Below, you'll find an overview of what this bot can do.
+
+> [!WARNING]\
+> This project is currently **non-functional** following the deprecation of Gemini 1.5 API. The existing codebase is outdated, contains bugs, and is not actively maintained.
+>
+> A new version is under development, focusing on cleaner code, better documentation, and improved stability. It will also include new features, such as a more customizable AI, easier installation for beginners or non-programmers, and configurable settings that allow users to create their own custom bots. This update will take some time to complete.
+>
+> If you're interested in exploring the current state of the project or need access to the unstable version for testing or personal use, feel free to contact me at: navosx.0@gmail.com 
+
 ## Features
 
 - Have a chatbot using Gemini API with image and video support
